@@ -6,11 +6,21 @@ dotenv.config();
 
 const app = express();
 
-app.get('/', (req, res) =>
+// Middlewares
+app.use((req, res, next) => {
+  console.log(`Receiving ${req.method} request to route ${req.path}`);
+  next();
+});
+
+app.get('/', (req, res) => {
   res.json({
     message: 'Hello borrow.me API!',
   })
-);
+});
+
+// Error handling middleware
+// Route not found middleware
+
 
 app.listen(process.env.PORT, () =>
   console.log(`App connected to PORT ${process.env.PORT}`)
