@@ -23,6 +23,6 @@ app.use('/api', appRoutes);
 app.use(errorHandlingMiddleware);
 app.use(resourceNotFoundMiddleware);
 
-app.listen(process.env.PORT, () =>
-  console.log(`App connected to PORT ${process.env.PORT}`)
-);
+app.listen(process.env.PORT, () => {
+  console.log(`App connected to PORT ${process.env.PORT}`);
+});
