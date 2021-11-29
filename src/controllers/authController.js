@@ -1,11 +1,13 @@
 import { Router } from 'express';
 
 import RegisterRequestDTO from '../dtos/RegisterRequestDTO';
+import LoginRequestDTO from '../dtos/LoginRequestDTO';
 
 import User from '../models/User';
 
 import AuthService from '../services/authService';
 import AuthRepository from '../repositories/authRepository';
+
 
 // Dependency injection
 const authService = new AuthService(new AuthRepository(User));
@@ -27,11 +29,11 @@ router.post('/register', async (req, res, next) => {
 
 // Log in
 router.post('/login', async (req, res, next) => {
-  const { body } = req;
   try {
-    
+    const body = new LoginRequestDTO(req.body);
 
-    res.status(201).json(body);
+    const loginResponse = await authService.login(body);
+    res.status(201).json(loginResponse);
   } catch (error) {
     next(error);
   }
