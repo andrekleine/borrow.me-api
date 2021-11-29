@@ -1,5 +1,7 @@
-import { generateHash } from '../utils/bcrypt';
+import { generateHash, compareHash } from '../utils/bcrypt';
 import UserAlreadyExists from '../errors/UserAlreadyExists';
+import InvalidCredentials from '../errors/InvalidCredentials';
+import { generateLoginToken } from '../utils/jwt';
 
 class AuthService {
   constructor(authRepository) {
@@ -25,6 +27,32 @@ class AuthService {
       id: savedUser._id,
       name: savedUser.name,
       email: savedUser.email,
+    };
+  }
+
+  async login(body) {
+    await body.validate();
+
+    const foundUser = await this.authRepository.findUserByEmail(body.email);
+
+    if (!foundUser) {
+      throw new InvalidCredentials();
+    }
+
+    const doesPasswordMatch = compareHash(body.password, foundUser.password);
+
+    if (!doesPasswordMatch) {
+      throw new InvalidCredentials();
+    }
+
+    const token = generateLoginToken({
+      id: foundUser._id,
+      role: foundUser.role,
+    });
+
+    return {
+      token,
+      role: foundUser.role,
     };
   }
 }
