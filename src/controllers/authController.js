@@ -1,58 +1,40 @@
 import { Router } from 'express';
 
-import bcrypt from 'bcryptjs';
+import RegisterRequestDTO from '../dtos/RegisterRequestDTO';
 
 import User from '../models/User';
-import registerSchema from '../schemas/registerSchema';
-import InvalidBodyRequest from '../errors/InvalidBodyRequest';
-import UserAlreadyExists from '../errors/UserAlreadyExists';
+
+import AuthService from '../services/authService';
+import AuthRepository from '../repositories/authRepository';
+
+// Dependency injection
+const authService = new AuthService(new AuthRepository(User));
 
 const router = Router();
 
 // Register
 router.post('/register', async (req, res, next) => {
   try {
-    try {
-      await registerSchema.validate(req.body, { abortEarly: false });
-    } catch (error) {
-      const errors = error.inner.map((err) => ({
-        field: err.path,
-        error: err.errors[0],
-      }));
+    const body = new RegisterRequestDTO(req.body);
 
-      throw new InvalidBodyRequest(errors);
-    }
+    const userResponse = await authService.register(body);
 
-    const foundUser = await User.findOne({ email: req.body.email });
-
-    if (foundUser) {
-      throw new UserAlreadyExists();
-    }
-
-    const encryptedPassword = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
-
-    const newUser = { ...req.body, password: encryptedPassword };
-
-    const savedUser = await User.create(newUser);
-
-    const response = {
-        id: savedUser._id,
-        name: savedUser.name,
-        email: savedUser.email,
-    };
-
-    res.status(201).json(response);
+    res.status(201).json(userResponse);
   } catch (error) {
     next(error);
   }
 });
 
 // Log in
-router.post('/login', (req, res, next) => {
+router.post('/login', async (req, res, next) => {
+  const { body } = req;
   try {
-    console.log(req.body);
-    res.status(201).json(req.body);
-  } catch (error) {}
+    
+
+    res.status(201).json(body);
+  } catch (error) {
+    next(error);
+  }
 });
 
 export default router;
