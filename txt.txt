@@ -1,0 +1,137 @@
+# Stack
+- Node
+- Express
+- Mongoose
+- Nodemon
+- Eslint
+- Babel
+- Bcryptjs
+- Yup
+- Jsonwebtoken
+- Dotenv
+- Npm-run-all
+
+# Description
+### API to feed the interface of a social network of books. In this app, users will be able to register themselves and add the books they read (with reviews), own, and want to lend. Below, the specs for each entity involved in this project:
+- Users
+  - Model: User
+  - Properties:
+    - Name: text; required; min 3; max 100;
+    - Email: text; required; format; can't have double in DB;
+    - Password: text; required; min 6 (before encrypt); max 50; will be encrypted;
+    - Role: text; values: [User, Admin]; default: User;
+    - Active: bool; every registered user is gonna be active;
+- Books
+  - Model: Book
+  - Properties:
+    - Title: text; required; min 3; max 150;
+    - Authors: List of authors' names (text; required; min 3; max 150);
+    - Description: text; min 3; max 1000;
+    - Image Link: text; min 5; max 150;
+    - Google ID: ID from Google Books
+    - Owner: Reference (ID) of the user that added the book
+    - Read: bool; default: false;    
+    - Lendable: bool; default: false;
+- Reviews
+  - Model: Review
+  - Properties:
+    - Google ID: ID from Google Books
+    - Owner: Reference (ID) of the user that added the review
+    - Stars: number; default: 0; options: [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
+    - Text: text; min 3; max 250;
+
+# Routes
+## Public (does not require auth)
+- /auth/register - OK  
+- /auth/login - OK
+
+## Privadas (requer autenticação)
+- /books - OK
+
+- /books/:bookId - OK  
+
+- /books/:bookId  
+
+- /books/:bookId
+  - PUT
+  - Serviço que modifica alguns parametros do livro que já está na coleção  
+  - Parametros
+    - PARAM --- ID do livro clicado
+    - HEADER --- token válida (seguindo padrão OAuth 2.0 - Authentication: Bearer {token})
+  - Regras
+    - Validar existência e formato dos campos enviados no BODY (erro 400 deve ser retornado caso haja algum problema)
+    - Salvar modificações
+    - Retornar um 201 com as infos do livro modificado
+
+- /books/:bookId
+  - DEL
+  - Serviço que deleta um livro da coleção  
+  - Parametros
+    - PARAM --- ID do livro clicado
+    - HEADER --- token válida (seguindo padrão OAuth 2.0 - Authentication: Bearer {token})
+  - Regras
+    - Deletar o livro da coleção
+    - Retornar um 201 com a confirmação do livro deletado (vazio)
+
+- /review/:googleId
+- GET
+  - Serviço que retorna uma lista de reviews referente ao google id informado
+  - Parametros
+    - PARAM --- google ID do livro clicado
+    - HEADER --- token válida (seguindo padrão OAuth 2.0 - Authentication: Bearer {token})
+  - Regras
+    - Retornar um 200 contendo a lista
+
+- /review/:googleId
+- POST
+  - Serviço que inclui um novo review referente ao google id informado
+  - Parametros
+    - PARAM --- google ID do livro clicado
+    - HEADER --- token válida (seguindo padrão OAuth 2.0 - Authentication: Bearer {token})
+  - Regras
+    - Retornar um 201 contendo o novo review inserido
+
+- /review/:reviewId
+- PUT
+  - Serviço que modifica um review referente ao review id informado
+  - Parametros
+    - PARAM --- reviewID do review selecionado
+    - HEADER --- token válida (seguindo padrão OAuth 2.0 - Authentication: Bearer {token})
+  - Regras
+    - Retornar um 201 contendo o review modificado
+
+- /review/:reviewId
+- DEL
+  - Serviço que deleta um review referente ao review id informado
+  - Parametros
+    - PARAM --- reviewID do review selecionado
+    - HEADER --- token válida (seguindo padrão OAuth 2.0 - Authentication: Bearer {token})
+  - Regras
+    - Retornar um 201 contendo o review deletado (vazio)
+
+- /new
+  - GET
+  - Serviço que lista todos os livros lidos pelos amigos recentemente      
+  - Parametros
+    - HEADER --- token válida (seguindo padrão OAuth 2.0 - Authentication: Bearer {token})
+  - Regras
+    - Buscar todos os livros adicionados por todos os usuários - EXCETO o usuário dono do token enviado no header da requisição - mostrando os resultados por ORDEM DECRESCENTE DE DATA, LIMITADO A 1 mês. Retornar lista;
+    - Retornar 200
+
+- /borrow
+  - GET
+  - Serviço que lista todos os livros que amigos podem emprestar  
+  - Parametros
+    - HEADER --- token válida (seguindo padrão OAuth 2.0 - Authentication: Bearer {token})
+  - Regras
+    - Buscar todos os livros adicionados por todos os usuários - EXCETO o usuário dono do token enviado no header da requisição - mostrando os resultados por ORDEM DECRESCENTE DE DATA. Retornar lista;
+    - Retornar 200
+
+- /read
+  - GET
+  - Serviço que lista todos os livros que o usuário leu  
+  - Parametros
+    - HEADER --- token válida (seguindo padrão OAuth 2.0 - Authentication: Bearer {token})
+  - Regras
+    - Buscar todos os livros marcados como "lido" pelo usuário dono do token enviado no header da requisição - mostrando os resultados por ORDEM DECRESCENTE DE DATA. Retornar lista;
+    - Retornar 200
