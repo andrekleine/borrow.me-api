@@ -17,21 +17,72 @@ router.get('/', async (req, res, next) => {
   try {
     const { id } = req.user;
 
-    // Last 15 books ready by friends
-    const lastBooksReadByFriends =
+    // Last 9 books ready by friends
+    const last9BooksReadByFriends =
       await booksService.findLastBooksReadByFriends(id);
 
-    // Last 15 books friends will lend
-    const lastBooksFriendsWillLend =
+    // Last 9 books friends will lend
+    const last9BooksFriendsWillLend =
       await booksService.findLastBooksFriendsWillLend(id);
 
     // Last 9 books I have read
-    const lastBooksIRead = await booksService.findLastBooksIRead(id);
+    const last9BooksIRead = await booksService.findLastBooksIRead(id);
 
     // Response
     res
       .status(201)
-      .json([lastBooksReadByFriends, lastBooksFriendsWillLend, lastBooksIRead]);
+      .json([
+        last9BooksReadByFriends,
+        last9BooksFriendsWillLend,
+        last9BooksIRead,
+      ]);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// "New From Friends" section
+router.get('/new-books-friends', async (req, res, next) => {
+  try {
+    const { id } = req.user;
+
+    // Last 60 books read by friends
+    const last60BooksReadByFriends =
+      await booksService.findLast60BooksReadByFriends(id);
+
+    // Response
+    res.status(201).json(last60BooksReadByFriends);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// "Friends will lend" section
+router.get('/friends-will-lend', async (req, res, next) => {
+  try {
+    const { id } = req.user;
+
+    // Last 60 books read by friends
+    const last60BooksFriendsWillLend =
+      await booksService.findLast60BooksFriendsWillLend(id);
+
+    // Response
+    res.status(201).json(last60BooksFriendsWillLend);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// "I read recently" section
+router.get('/read-recently', async (req, res, next) => {
+  try {
+    const { id } = req.user;
+
+    // Last 60 books read by friends
+    const last60BooksIRead = await booksService.findLast60BooksIRead(id);
+
+    // Response
+    res.status(201).json(last60BooksIRead);
   } catch (error) {
     next(error);
   }

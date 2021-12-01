@@ -3,27 +3,52 @@ class BooksService {
     this.booksRepository = booksRepository;
   }
 
-  // Last 15 books ready by friends
-  async findLastBooksReadByFriends(id) {
-    const lastBooksReadByFriends =
-      await this.booksRepository.findLastBooksReadByFriends(id);
+  // Last 9 books read by friends
+  async findLast9BooksReadByFriends(id) {
+    const last9BooksReadByFriends =
+      await this.booksRepository.findLast9BooksReadByFriends(id);
 
-    return lastBooksReadByFriends;
+    return last9BooksReadByFriends;
   }
 
-  // Last 15 books friends will lend
-  async findLastBooksFriendsWillLend(id) {
-    const lastBooksFriendsWillLend =
-      await this.booksRepository.findLastBooksFriendsWillLend(id);
+  // Last 60 books read by friends
+  async findLast60BooksReadByFriends(id) {
+    const last60BooksReadByFriends =
+      await this.booksRepository.findLast60BooksReadByFriends(id);
 
-    return lastBooksFriendsWillLend;
+    return last60BooksReadByFriends;
+  }
+
+  // Last 9 books friends will lend
+  async findLast9BooksFriendsWillLend(id) {
+    const last9BooksFriendsWillLend =
+      await this.booksRepository.findLast9BooksFriendsWillLend(id);
+
+    return last9BooksFriendsWillLend;
+  }
+
+  // Last 60 books friends will lend
+  async findLast60BooksFriendsWillLend(id) {
+    const last60BooksFriendsWillLend =
+      await this.booksRepository.findLast60BooksFriendsWillLend(id);
+
+    return last60BooksFriendsWillLend;
   }
 
   // Last 9 books I have read
-  async findLastBooksIRead(id) {
-    const lastBooksIRead = await this.booksRepository.findLastBooksIRead(id);
+  async findLast9BooksIRead(id) {
+    const last9BooksIRead = await this.booksRepository.findLast9BooksIRead(id);
 
-    return lastBooksIRead;
+    return last9BooksIRead;
+  }
+
+  // Last 60 books I have read
+  async findLast60BooksIRead(id) {
+    const last60BooksIRead = await this.booksRepository.findLast60BooksIRead(
+      id
+    );
+
+    return last60BooksIRead;
   }
 
   // Find one book by bookId
