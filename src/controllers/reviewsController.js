@@ -25,6 +25,8 @@ router.get('/:googleId', async (req, res, next) => {
   }
 });
 
+// Get ONE reviews by review Id
+
 // Add new review
 router.post('/:googleId', async (req, res, next) => {
   try {

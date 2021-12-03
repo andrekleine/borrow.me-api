@@ -16,17 +16,18 @@ const router = Router();
 router.get('/', async (req, res, next) => {
   try {
     const { id } = req.user;
+    const bookAmount = 9;
 
-    // Last 9 books ready by friends
+    // Last 9 books ready by friends    
     const last9BooksReadByFriends =
-      await booksService.findLastBooksReadByFriends(id);
+      await booksService.findLastBooksReadByFriends(id, bookAmount);
 
     // Last 9 books friends will lend
     const last9BooksFriendsWillLend =
-      await booksService.findLastBooksFriendsWillLend(id);
+      await booksService.findLastBooksFriendsWillLend(id, bookAmount);
 
     // Last 9 books I have read
-    const last9BooksIRead = await booksService.findLastBooksIRead(id);
+    const last9BooksIRead = await booksService.findLastBooksIRead(id, bookAmount);
 
     // Response
     res
@@ -45,10 +46,11 @@ router.get('/', async (req, res, next) => {
 router.get('/new-books-friends', async (req, res, next) => {
   try {
     const { id } = req.user;
+    const bookAmount = 60;
 
     // Last 60 books read by friends
     const last60BooksReadByFriends =
-      await booksService.findLast60BooksReadByFriends(id);
+      await booksService.findLastBooksReadByFriends(id, bookAmount);
 
     // Response
     res.status(201).json(last60BooksReadByFriends);
@@ -61,10 +63,11 @@ router.get('/new-books-friends', async (req, res, next) => {
 router.get('/friends-will-lend', async (req, res, next) => {
   try {
     const { id } = req.user;
+    const bookAmount = 60;
 
     // Last 60 books read by friends
     const last60BooksFriendsWillLend =
-      await booksService.findLast60BooksFriendsWillLend(id);
+      await booksService.findLastBooksFriendsWillLend(id, bookAmount);
 
     // Response
     res.status(201).json(last60BooksFriendsWillLend);
@@ -77,9 +80,10 @@ router.get('/friends-will-lend', async (req, res, next) => {
 router.get('/read-recently', async (req, res, next) => {
   try {
     const { id } = req.user;
+    const bookAmount = 60;
 
     // Last 60 books read by friends
-    const last60BooksIRead = await booksService.findLast60BooksIRead(id);
+    const last60BooksIRead = await booksService.findLastBooksIRead(id, bookAmount);
 
     // Response
     res.status(201).json(last60BooksIRead);
