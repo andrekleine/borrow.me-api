@@ -5,12 +5,19 @@ class ReviewsService {
 
   // Find all reviews by googleId
   async findReviewsByGoogleId(googleId) {
-    const review = await this.reviewsRepository.findReviewsByGoogleId(googleId);
+    const allReviewsOfOneBook = await this.reviewsRepository.findReviewsByGoogleId(googleId);
 
-    return review;
+    return allReviewsOfOneBook;
   }
 
-  // Create new review in DB
+  // Find my review by googleId
+  async findMyReviewByGoogleId(googleId, id) {
+    const myReviewOfOneBook = await this.reviewsRepository.findMyReviewByGoogleId(googleId, id);
+
+    return myReviewOfOneBook;
+  }
+
+    // Create new review in DB
   async create(body, id, googleId) {
     await body.validate();
 

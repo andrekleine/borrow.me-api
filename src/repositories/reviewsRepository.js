@@ -5,14 +5,24 @@ class ReviewsRepository {
 
   // Find all reviews by googleId
   async findReviewsByGoogleId(googleId) {
-    const review = await this.Model.find({
+    const allReviewsOfOneBook = await this.Model.find({
       googleID: googleId,
     });
 
-    return review;
+    return allReviewsOfOneBook;
   }
 
-  // Create new review in DB
+  // Find my review by googleId
+  async findMyReviewByGoogleId(googleId, id) {
+    const myReviewOfOneBook = await this.Model.find({
+      googleID: googleId,
+      owner: id
+    });
+
+    return myReviewOfOneBook;
+  }
+
+    // Create new review in DB
   async create(reviewData) {
     const newReview = await this.Model.create(reviewData);
 

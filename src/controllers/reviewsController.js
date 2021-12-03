@@ -12,20 +12,21 @@ const reviewsService = new ReviewsService(new ReviewsRepository(Review));
 
 const router = Router();
 
-// Get all reviews by googleId
+// Get all reviews by googleId + my review by googleId
 router.get('/:googleId', async (req, res, next) => {
   try {
     const { googleId } = req.params;
+    const { id } = req.user;
 
-    const review = await reviewsService.findReviewsByGoogleId(googleId);
+    const allReviewsOfOneBook = await reviewsService.findReviewsByGoogleId(googleId);
 
-    res.status(201).json(review);
+    const myReviewOfOneBook = await reviewsService.findMyReviewByGoogleId(googleId, id);
+
+    res.status(201).json([allReviewsOfOneBook, myReviewOfOneBook]);
   } catch (error) {
     next(error);
   }
 });
-
-// Get ONE reviews by review Id
 
 // Add new review
 router.post('/:googleId', async (req, res, next) => {
