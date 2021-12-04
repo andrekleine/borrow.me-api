@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 import initMongoConnection from './database/mongoDBConfig';
 
@@ -11,10 +12,13 @@ import resourceNotFoundMiddleware from './middlewares/resourceNotFound';
 
 dotenv.config();
 const app = express();
+
 initMongoConnection();
 
 // Middlewares
 app.use(express.json());
+app.use(cors());
+
 
 app.use(requestTrackingMiddleware);
 
