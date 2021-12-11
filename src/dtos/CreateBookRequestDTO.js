@@ -11,9 +11,9 @@ class CreateBookRequestDTO {
     this.googleID = googleID;
 
     this.schema = yup.object().shape({
-      title: yup.string().required().min(3).max(150),
+      title: yup.string().required().min(3).max(500),
       authors: yup.array().of(yup.string().required().min(3).max(150)).required(),
-      description: yup.string().min(3).max(2000),
+      description: yup.string().min(3).max(5000),
       imgLink: yup.string().min(5).max(2000),
       googleID: yup.string().required().min(3).max(50),
     });

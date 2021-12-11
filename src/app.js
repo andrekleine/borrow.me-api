@@ -15,11 +15,10 @@ const app = express();
 
 initMongoConnection();
 
-// Middlewares
 app.use(express.json());
 app.use(cors());
 
-
+// Middlewares
 app.use(requestTrackingMiddleware);
 
 app.use('/api', appRoutes);

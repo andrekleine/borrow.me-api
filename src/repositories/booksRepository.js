@@ -39,9 +39,10 @@ class BooksRepository {
   }
 
   // Find one book by BookId
-  async findOneBookByBookId(bookId) {
+  async findOneBookByGoogleId(googleId, id) {
     const book = await this.Model.findOne({
-      _id: bookId,
+      googleID: googleId,
+      owner: id
     });
 
     return book;

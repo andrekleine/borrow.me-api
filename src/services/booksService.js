@@ -27,8 +27,8 @@ class BooksService {
   }
 
   // Find one book by bookId
-  async findOneBookByBookId(bookId) {
-    const book = await this.booksRepository.findOneBookByBookId(bookId);
+  async findOneBookByGoogleId(googleId, id) {
+    const book = await this.booksRepository.findOneBookByGoogleId(googleId, id);
 
     return book;
   }

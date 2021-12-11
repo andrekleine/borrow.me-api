@@ -92,13 +92,14 @@ router.get('/read-recently', async (req, res, next) => {
   }
 });
 
-// Find one book
-router.get('/:bookId', async (req, res, next) => {
+// Find one book by MongoDB Id
+router.get('/:googleId', async (req, res, next) => {
   try {
-    const { bookId } = req.params;
+    const { id } = req.user;
+    const { googleId } = req.params;
     console.log(req.params);
 
-    const book = await booksService.findOneBookByBookId(bookId);
+    const book = await booksService.findOneBookByGoogleId(googleId, id);
 
     res.status(201).json(book);
   } catch (error) {
