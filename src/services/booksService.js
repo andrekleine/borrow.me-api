@@ -21,7 +21,10 @@ class BooksService {
 
   // Last books I have read
   async findLastBooksIRead(id, bookAmount) {
-    const lastBooksIRead = await this.booksRepository.findLastBooksIRead(id, bookAmount);
+    const lastBooksIRead = await this.booksRepository.findLastBooksIRead(
+      id,
+      bookAmount
+    );
 
     return lastBooksIRead;
   }
@@ -49,6 +52,20 @@ class BooksService {
     const newBook = await this.booksRepository.create(bookData);
 
     return newBook;
+  }
+
+  // Edit one book by book id
+  async editBookByBookId(bookId, body) {
+    const bookData = {
+      lendable: body.lendable,
+    };
+
+    const editedBook = await this.booksRepository.editBookByBookId(
+      bookId,
+      bookData
+    );
+
+    return editedBook;
   }
 
   // Delete one book by id

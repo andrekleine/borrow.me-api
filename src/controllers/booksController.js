@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
     const { id } = req.user;
     const bookAmount = 9;
 
-    // Last 9 books ready by friends    
+    // Last 9 books ready by friends
     const last9BooksReadByFriends =
       await booksService.findLastBooksReadByFriends(id, bookAmount);
 
@@ -27,7 +27,10 @@ router.get('/', async (req, res, next) => {
       await booksService.findLastBooksFriendsWillLend(id, bookAmount);
 
     // Last 9 books I have read
-    const last9BooksIRead = await booksService.findLastBooksIRead(id, bookAmount);
+    const last9BooksIRead = await booksService.findLastBooksIRead(
+      id,
+      bookAmount
+    );
 
     // Response
     res
@@ -83,7 +86,10 @@ router.get('/read-recently', async (req, res, next) => {
     const bookAmount = 60;
 
     // Last 60 books read by friends
-    const last60BooksIRead = await booksService.findLastBooksIRead(id, bookAmount);
+    const last60BooksIRead = await booksService.findLastBooksIRead(
+      id,
+      bookAmount
+    );
 
     // Response
     res.status(201).json(last60BooksIRead);
@@ -116,6 +122,20 @@ router.post('/:googleId', async (req, res, next) => {
     const newBook = await booksService.create(body, id);
 
     res.status(201).json(newBook);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Edit one book by book id
+router.put('/:bookId', async (req, res, next) => {
+  try {
+    const { bookId } = req.params;
+    const { body } = req;
+
+    const editedBook = await booksService.editBookByBookId(bookId, body);
+
+    res.status(201).json(editedBook);
   } catch (error) {
     next(error);
   }
