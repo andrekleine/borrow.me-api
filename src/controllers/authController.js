@@ -8,7 +8,6 @@ import User from '../models/User';
 import AuthService from '../services/authService';
 import AuthRepository from '../repositories/authRepository';
 
-
 // Dependency injection
 const authService = new AuthService(new AuthRepository(User));
 
@@ -34,6 +33,17 @@ router.post('/login', async (req, res, next) => {
 
     const loginResponse = await authService.login(body);
     res.status(201).json(loginResponse);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get user by id
+router.get('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const user = await authService.findUserById(id);
+    res.status(201).json(user);
   } catch (error) {
     next(error);
   }

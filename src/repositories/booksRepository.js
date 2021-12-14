@@ -38,7 +38,17 @@ class BooksRepository {
     return lastBooksIRead;
   }
 
-  // Find one book by BookId
+  // Find people who are gonna lend a certain book by GoogleId
+  async findWhoLendsBookByGoogleId(googleId) {
+    const peopleWhoLend = await this.Model.find({
+      googleID: googleId,
+      lendable: true,
+    });
+
+    return peopleWhoLend;
+  }
+
+  // Find one book by GoogleId
   async findOneBookByGoogleId(googleId, id) {
     const book = await this.Model.findOne({
       googleID: googleId,

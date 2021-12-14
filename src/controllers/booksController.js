@@ -68,7 +68,7 @@ router.get('/friends-will-lend', async (req, res, next) => {
     const { id } = req.user;
     const bookAmount = 60;
 
-    // Last 60 books read by friends
+    // Last 60 books friends will lend
     const last60BooksFriendsWillLend =
       await booksService.findLastBooksFriendsWillLend(id, bookAmount);
 
@@ -107,7 +107,11 @@ router.get('/:googleId', async (req, res, next) => {
 
     const book = await booksService.findOneBookByGoogleId(googleId, id);
 
-    res.status(201).json(book);
+    const peopleWhoLend = await booksService.findWhoLendsBookByGoogleId(
+      googleId
+    );
+
+    res.status(201).json([book, peopleWhoLend]);
   } catch (error) {
     next(error);
   }

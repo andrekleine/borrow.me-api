@@ -29,6 +29,15 @@ class BooksService {
     return lastBooksIRead;
   }
 
+  // Find people who are gonna lend a certain book by GoogleId
+  async findWhoLendsBookByGoogleId(googleId) {
+    const peopleWhoLend = await this.booksRepository.findWhoLendsBookByGoogleId(
+      googleId
+    );
+
+    return peopleWhoLend;
+  }
+
   // Find one book by bookId
   async findOneBookByGoogleId(googleId, id) {
     const book = await this.booksRepository.findOneBookByGoogleId(googleId, id);

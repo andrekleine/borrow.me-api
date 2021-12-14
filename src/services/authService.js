@@ -55,6 +55,12 @@ class AuthService {
       role: foundUser.role,
     };
   }
+
+  async findUserById(id) {
+    const user = await this.authRepository.findUserById(id);
+
+    return (user);
+  }
 }
 
 export default AuthService;
