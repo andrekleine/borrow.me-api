@@ -18,11 +18,11 @@ router.get('/:googleId', async (req, res, next) => {
     const { googleId } = req.params;
     const { id } = req.user;
 
-    const allReviewsOfOneBook = await reviewsService.findReviewsByGoogleId(googleId);
+    // const allReviewsOfOneBook = await reviewsService.findReviewsByGoogleId(googleId);
 
     const myReviewOfOneBook = await reviewsService.findMyReviewByGoogleId(googleId, id);
 
-    res.status(201).json([allReviewsOfOneBook, myReviewOfOneBook]);
+    res.status(201).json(myReviewOfOneBook);
   } catch (error) {
     next(error);
   }
