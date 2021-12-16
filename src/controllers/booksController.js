@@ -108,7 +108,7 @@ router.get('/:googleId', async (req, res, next) => {
     const book = await booksService.findOneBookByGoogleId(googleId, id);
 
     const peopleWhoLend = await booksService.findWhoLendsBookByGoogleId(
-      googleId
+      googleId, id
     );
 
     res.status(201).json([book, peopleWhoLend]);

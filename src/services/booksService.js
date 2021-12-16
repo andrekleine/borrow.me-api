@@ -30,9 +30,9 @@ class BooksService {
   }
 
   // Find people who are gonna lend a certain book by GoogleId
-  async findWhoLendsBookByGoogleId(googleId) {
+  async findWhoLendsBookByGoogleId(googleId, id) {
     const peopleWhoLend = await this.booksRepository.findWhoLendsBookByGoogleId(
-      googleId
+      googleId, id
     );
 
     return peopleWhoLend;

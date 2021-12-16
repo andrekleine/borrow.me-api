@@ -39,8 +39,9 @@ class BooksRepository {
   }
 
   // Find people who are gonna lend a certain book by GoogleId
-  async findWhoLendsBookByGoogleId(googleId) {
+  async findWhoLendsBookByGoogleId(googleId, id) {
     const peopleWhoLend = await this.Model.find({
+      owner: { $ne: id },
       googleID: googleId,
       lendable: true,
     });
