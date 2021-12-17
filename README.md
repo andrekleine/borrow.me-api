@@ -50,6 +50,11 @@ LOGIN_TOKEN_EXPIRATION=<ADD_YOUR_TOKEN_EXPIRATION_PERIOD_HERE>
 - Install dependencies by running `npm install` command:
 - Run project with `npm run dev`, and it will be available on the PORT defined inside you .env file
 
-## Authors & Version Control
+## Author
+- **André Kleine** - [Github](https://github.com/andrekleine) [LinkedIn](https://www.linkedin.com/in/andre-kleine-/)
 
-API developed by **André Kleine - [https://github.com/andrekleine](https://github.com/andrekleine)** - Borrow.me App Version 1.0_ - **Published in Dec-17th, 2021**
+## Acknowledgement
+The awesome teachers crew @ Ironhack:
+- Henrique Mendes
+- Henrique Morikawa
+- Flavia Maia
