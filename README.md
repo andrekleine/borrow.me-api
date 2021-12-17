@@ -1,4 +1,4 @@
-# Borrow.me App - Back end Application
+# Borrow.me App - Back End Application
 
 This repository keeps the API application to perform all CRUD and Authentication operations for Borrow.me app.
 
