@@ -41,15 +41,15 @@ To run this API locally, please follow the below steps:
 - Create a .env file in the root path of this project and add the following variables:
 
 ```text
-PORT=5050
-MONGODB_URI=mongodb://localhost:27017/projety-api
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/borrowme-api
 LOGIN_TOKEN_SECRET=<ADD_YOUR_TOKEN_SECRET_HERE>
 LOGIN_TOKEN_EXPIRATION=<ADD_YOUR_TOKEN_EXPIRATION_PERIOD_HERE>
 ```
 
 - Install dependencies by running `npm install` command:
-- Run project with `npm run dev`, and it will be available the PORT defined inside you .env file
+- Run project with `npm run dev`, and it will be available on the PORT defined inside you .env file
 
 ## Authors & Version Control
 
-API developed by **Henrique Guazzelli Mendes - [https://github.com/henriquegmendes](https://github.com/henriquegmendes)** - _Projety-API App Version 1.0_ - **Published in Nov-24th of 2021**
+API developed by **André Kleine - [https://github.com/andrekleine](https://github.com/andrekleine)** - Borrow.me App Version 1.0_ - **Published in Dec-17th, 2021**
